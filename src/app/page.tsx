@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Loader2, Smartphone } from "lucide-react";
+import Image from "next/image";
+import CronpayLogo from "../../public/icon.png";
 
 type PaymentState = "initial" | "waiting" | "completed";
 
@@ -116,42 +118,42 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
-      <Card className="w-full max-w-md shadow-lg">
+      <Card className="w-full max-w-md shadow-2xl bg-white border-none">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Checkout</CardTitle>
-          <CardDescription>Complete your purchase securely</CardDescription>
+          <CardTitle className="text-2xl font-bold text-black">Checkout</CardTitle>
+          <CardDescription className="text-black">Complete your purchase securely</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {paymentState === "initial" && (
             <>
               {/* Product Display */}
-              <div className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg">
+              <div className="flex items-start gap-4 p-4 bg-slate-100 rounded-lg">
                 <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
                   <Smartphone className="w-10 h-10 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg">Premium Phone Case</h3>
+                  <h3 className="font-semibold text-lg text-black">Premium Phone Case</h3>
                   <p className="text-sm text-muted-foreground">
                     Durable protection with elegant design
                   </p>
                   <div className="flex items-center gap-2 mt-2">
                     <Badge variant="secondary">Bestseller</Badge>
-                    <span className="text-2xl font-bold">₹{PRODUCT_PRICE}</span>
+                    <span className="text-2xl font-bold text-black">₹{PRODUCT_PRICE}</span>
                   </div>
                 </div>
               </div>
 
               {/* Order Summary */}
               <div className="space-y-2 py-4 border-y">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Subtotal</span>
+                <div className="flex justify-between text-sm text-black">
+                  <span className="text-muted-foreground ">Subtotal</span>
                   <span>₹{PRODUCT_PRICE}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-sm text-black">
                   <span className="text-muted-foreground">Tax</span>
                   <span>₹0</span>
                 </div>
-                <div className="flex justify-between font-bold text-lg pt-2">
+                <div className="flex justify-between font-bold text-lg pt-2 text-black">
                   <span>Total</span>
                   <span>₹{PRODUCT_PRICE}</span>
                 </div>
@@ -159,7 +161,7 @@ export default function Home() {
 
               {/* Payment Button */}
               <Button
-                className="w-full h-12 text-lg"
+                className="w-full h-12 text-lg cursor-pointer hover:bg-blue-600 hover:text-white"
                 onClick={handlePayWithCrypto}
                 disabled={isProcessing}
               >
@@ -173,8 +175,12 @@ export default function Home() {
                 )}
               </Button>
 
-              <p className="text-xs text-center text-muted-foreground">
-                Secure payment powered by CronPay
+              <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-2">
+                Secure payment powered by
+                <span className="flex items-center gap-2 font-bold text-blue-600">
+                  <Image src={CronpayLogo} alt="CronPay" className="rounded-sm" width={16} height={16} />
+                  <span className="text-purple-600">CronPay</span>
+                </span>
               </p>
             </>
           )}
@@ -185,17 +191,17 @@ export default function Home() {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
                   <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-xl font-semibold text-black">
                   Waiting for transaction to be completed
                 </h3>
-                <p className="text-muted-foreground">
+                <p className=" text-black">
                   Please complete the payment in the opened tab
                 </p>
 
                 {/* Countdown Timer */}
                 <div className="mt-6 p-4 bg-slate-50 rounded-lg">
-                  <p className="text-sm text-muted-foreground mb-2">Time remaining</p>
-                  <p className="text-4xl font-bold font-mono">
+                  <p className="text-sm text-muted-foreground mb-2 ">Time remaining</p>
+                  <p className="text-4xl font-bold font-mono text-black">
                     {formatTime(timeRemaining)}
                   </p>
                 </div>
@@ -242,6 +248,6 @@ export default function Home() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </div >
   );
 }
